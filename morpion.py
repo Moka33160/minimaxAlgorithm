@@ -27,7 +27,7 @@ def gagnant():
 
 
 def verifier_fin():
-    recompense = None
+
     global partie_terminee
 
     vainqueur = gagnant()
@@ -36,17 +36,17 @@ def verifier_fin():
         partie_terminee = True
         if vainqueur == HUMAIN:
             message.config(text="Tu as gagné !")
-            recompense = -1
+
         else:
             message.config(text="L'IA a gagné !")
-            recompense = 1
+
 
     elif "" not in plateau:
         partie_terminee = True
         message.config(text="Match nul !")
-        recompense = 0
 
-    return partie_terminee , recompense
+
+    return partie_terminee
 
 
 def poser_symbole(index, symbole):

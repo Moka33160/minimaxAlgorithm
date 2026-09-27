@@ -38,6 +38,17 @@ def is_terminal(plateau ):
     return False, None
 
 
+def utility(plateau : list[Any]) -> int:
+    """ final numeric value for the terminal state"""
+    _ , vainqueur = is_terminal(plateau)
+    if vainqueur == "nul" :
+        return 0
+    elif vainqueur == "X":
+        return -1
+    else:
+        return 1
+
+
 
 def is_future_action_terminal(plateau):
     """check if the future action can be terminal or not  """

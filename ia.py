@@ -1,5 +1,11 @@
 from typing import Any
 
+combinaisons = [
+        (0, 1, 2), (3, 4, 5), (6, 7, 8),
+        (0, 3, 6), (1, 4, 7), (2, 5, 8),
+        (0, 4, 8), (2, 4, 6),
+    ]
+
 
 def mouvement_possible(plateau : list[Any]) -> list[Any]:
     state = []
@@ -19,14 +25,23 @@ def future_state(plateau  : list[Any], action : int , joeur : str) -> list[Any]:
         state[action] = "O"
         return state
 
+def is_terminal(plateau ):
+
+
+    for a, b, c in combinaisons:
+        if plateau[a] != "" and plateau[a] == plateau[b] == plateau[c]:
+            return True, plateau[a]
+
+    if "" not in plateau:
+        return True, "nul"
+
+    return False, None
+
+
 
 def is_future_action_terminal(plateau):
     """check if the future action can be terminal or not  """
-    combinaisons = [
-        (0, 1, 2), (3, 4, 5), (6, 7, 8),
-        (0, 3, 6), (1, 4, 7), (2, 5, 8),
-        (0, 4, 8), (2, 4, 6),
-    ]
+
 
     for a, b, c in combinaisons:
         cases = [plateau[a], plateau[b], plateau[c]]

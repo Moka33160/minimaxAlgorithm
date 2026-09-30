@@ -64,7 +64,7 @@ def is_future_action_terminal(plateau):
     return False
 
 
-def choisir_coup(plateau):
+def MiniMax(plateau, current_Player):
     """
     Entrée : liste de 9 cases.
         ""  = case vide
@@ -79,7 +79,23 @@ def choisir_coup(plateau):
     # Comportement provisoire pour tester l'interface :
     # joue dans la première case vide.
     # Remplace cette partie par ton algorithme Minimax.
-    for index in range(9):
-        if plateau[index] == "":
-            return index
-    pass
+    other_player = None
+    v = -1000
+    if is_terminal(plateau) == True :
+        return utility(plateau)
+
+
+    for i in range(plateau):
+        if plateau[i] == "":
+            new_palteau = future_state(plateau, i, current_Player)
+            other_player = "O" if current_Player == "X" else "X"
+            score = MiniMax(new_palteau, other_player)
+            if v < score:
+                v = score
+
+
+
+
+
+
+

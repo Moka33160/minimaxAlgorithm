@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
-from ia import MiniMax
+from ia import choisir_coup
 
 
 HUMAIN = "X"
@@ -80,7 +80,7 @@ def jouer_ia():
     try:
         # Une copie permet à ton algo de simuler des coups
         # sans modifier directement le plateau de l'interface.
-        index = MiniMax(plateau.copy())
+        index = choisir_coup(plateau.copy())
 
         if type(index) is not int:
             raise ValueError("choisir_coup doit retourner un entier.")

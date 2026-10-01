@@ -45,8 +45,10 @@ def utility(plateau : list[Any]) -> int:
         return 0
     elif vainqueur == "X":
         return -1
-    else:
+    elif vainqueur == "O":
         return 1
+    else:
+        raise ValueError("le plateau n'est pas terminal")
 
 
 
@@ -65,33 +67,48 @@ def is_future_action_terminal(plateau):
 
 
 def MiniMax(plateau, current_Player):
-    """
-    Entrée : liste de 9 cases.
-        ""  = case vide
-        "X" = joueur humain
-        "O" = IA
+    """Retourne le score du plateau si les deux joueurs jouent parfaitement."""
+    if current_Player == "O":
+        v = float("-inf")
+    else:
+        v = float("inf")
 
-    Sortie : indice entier d'une case vide, entre 0 et 8.
-
-    L'IA joue toujours O.
-    """
-
-    # Comportement provisoire pour tester l'interface :
-    # joue dans la première case vide.
-    # Remplace cette partie par ton algorithme Minimax.
-    other_player = None
-    v = -1000
-    if is_terminal(plateau) == True :
+    terminate , _ = is_terminal(plateau)
+    if terminate == True :
         return utility(plateau)
 
 
-    for i in range(plateau):
+    for i in range(len(plateau)):
         if plateau[i] == "":
             new_palteau = future_state(plateau, i, current_Player)
             other_player = "O" if current_Player == "X" else "X"
             score = MiniMax(new_palteau, other_player)
-            if v < score:
-                v = score
+            if current_Player == "O":
+                if v < score:
+                    v = score
+            else :
+                if v > score:
+                    v = score
+    return v
+
+
+def choisir_coup(plateau):
+    meilleur_score = float("-inf")
+    meilleur_coup = None
+
+    for action in mouvement_possible(plateau):
+        # Simuler le coup de l'IA
+        nouveau_plateau = future_state(plateau, action, "O")
+
+        # Après O, c'est à X de jouer
+        score = MiniMax(nouveau_plateau, "X")
+
+        if score > meilleur_score:
+            meilleur_score = score
+            meilleur_coup = action
+
+    return meilleur_coup
+
 
 
 
